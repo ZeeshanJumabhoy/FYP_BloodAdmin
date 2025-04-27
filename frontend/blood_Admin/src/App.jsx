@@ -1,0 +1,63 @@
+import { Routes, Route } from 'react-router-dom';
+import PageNotFound from './Pages/PageNotFound';
+import Sidebar from './Main/Sidebar';
+import Navbar from './Main/Navbar'; // Import the Navbar component
+import BloodBankDashboard from './Pages/BloodBankDashboard';
+import React, { useState } from 'react';
+import Login from './Pages/Login'; // Import the Login component
+
+// Layout component for dashboard pages
+function DashboardLayout({ children }) {
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true); // Sidebar toggle state
+
+  return (
+    <div style={{ display: 'flex' }}>
+      {/* Sidebar */}
+      <Sidebar onToggle={(expanded) => setIsSidebarExpanded(expanded)} />
+
+      {/* Main Content Area */}
+      <div
+        style={{
+          marginLeft: isSidebarExpanded ? "240px" : "64px", // Adjust based on sidebar width
+          width: "100%",
+          transition: "margin-left 0.3s ease", // Smooth transition
+        }}
+      >
+        {/* Navbar */}
+        <Navbar />
+
+        {/* Page Content */}
+        <div style={{ marginTop: "60px", padding: "20px" }}>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  return (
+    <Routes>
+      {/* Login Route (No Sidebar or Navbar) */}
+      <Route path="/blood-admin" element={<Login />} />
+
+      {/* Routes under /blood-admin */}
+      <Route
+        path="/blood-admin/*"
+        element={
+          <DashboardLayout>
+            <Routes>
+              <Route path="/Dashboard" element={<BloodBankDashboard />} />
+              {/* Add more dashboard routes here */}
+            </Routes>
+          </DashboardLayout>
+        }
+      />
+
+      {/* 404 page */}
+      <Route path="*" element={<PageNotFound />} />
+    </Routes>
+  );
+}
+
+export default App;

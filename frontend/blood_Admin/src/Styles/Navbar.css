@@ -1,0 +1,88 @@
+/* General Navbar Styles */  
+.navbar {  
+    background-color: #b91c1c; /* Primary color */  
+    border-radius: 12px;   
+    margin: 4px;  
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Subtle shadow */  
+    height: 50px; /* Increased height for a more spacious feel */  
+    display: flex;   
+    align-items: center;   
+    padding: 0 16px; /* Pad content */  
+}  
+
+.navbar-container {  
+    max-width: 1280px;   
+    margin: auto;   
+    display: flex;   
+    align-items: center;   
+    justify-content: space-between;   
+    width: 100%;  
+}  
+
+/* Left Side */  
+.navbar-l {  
+    display: flex;   
+    align-items: center;   
+    gap: 16px; /* Increased gap */  
+}  
+
+.navbar-title {  
+    color: #fff;   
+    font-size: 22px; /* Slightly larger title */  
+    font-weight: 700; /* Bolder font */  
+}  
+
+/* Icon Styles */  
+.home-icon {  
+    color: white; /* White for the icon for consistency */  
+    font-size: 24px; /* Larger icon for better visibility */  
+}  
+
+/* Middle Search */  
+.navbar-m {  
+    flex: 1;
+    margin: 0 20px; /* Reduced margin */  
+    display: flex;   
+    justify-content: center; /* Center the title */  
+}  
+
+.navbar-search {  
+    width: 60%; /* Limit width for better layout */  
+    max-width: 400px; /* Prevent it from being too wide */  
+    padding: 6px 18px; /* Padding for better touch targets */  
+    border: 1px solid #333;   
+    border-radius: 20px; /* More rounded corners */  
+    background-color: #2d2d2d; /* Darker background for contrast */  
+    color: #fff;   
+    font-size: 16px;   
+    outline: none;   
+    transition: border-color 0.3s, box-shadow 0.3s;   
+}  
+
+.navbar-search::placeholder {  
+    color: #ccc; /* Softer placeholder color */  
+}  
+
+.navbar-search:focus {  
+    border-color: #fbbf24; /* Warmer yellow on focus */  
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.6); /* Subtle glow */  
+}  
+
+/* Right Side */  
+.navbar-r {  
+    display: flex;   
+    align-items: center;   
+    gap: 24px; /* Balanced gap */  
+}  
+
+.navbar-icon {  
+    color: #fff;   
+    font-size: 22px; /* Larger icon */  
+    cursor: pointer;   
+    transition: transform 0.3s, color 0.3s;   
+}  
+
+.navbar-icon:hover {  
+    color: black; /* Hover color change for interaction */  
+    transform: scale(1.1); /* Slight scaling effect */  
+}  

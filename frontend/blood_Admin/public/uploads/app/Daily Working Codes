@@ -1,0 +1,159 @@
+	*For Page & Post Form*
+	<h2 id="reserve">Reserve This Vehicle Today!</h2>
+	[cf7_form title='Reserve This Special' show_title='false']
+
+
+	*For Widgets Form*
+	<div style="margin-top:10px;" class="wrapper coupeSec">
+		<h5 style="font-size:26px; margin-top:20px; padding-bottom:20px;" id="preorder">
+			Reserve This Vehicle Today!
+		</h5>
+		[cf7_form title='Reserve This Special' show_title='false']
+	</div >
+
+
+	*For Sidebar Hide*
+			<style scoped>
+			.sidebar {
+			display: none !important;
+			}
+			div.primary.col {
+			flex-basis: 100% !important;
+			}
+			</style>
+
+
+<style>
+h1, h2, a, p {
+    margin-top: 10px;    /* Space before the tags */
+    margin-bottom: 10px; /* Space after the tags */
+}
+</style>
+
+	*For Sidebar Hide*
+		<style scoped>
+    .sidebar {display: none !important;}div.primary.col {flex-basis: 100% !important;}</style>
+
+<style>
+    .page-title{
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        background-color: #333333;
+    }
+    </style>
+
+<style scoped>
+.sidebar {
+display: none !important;
+}
+div.primary.col {
+flex-basis: 100% !important;
+}
+</style>
+
+
+*Audi Client Button Style*
+
+background-color:#999999;color:#000000;display:block;font-weight:bold;margin-bottom:10px;padding:8px 16px;text-align:center;transition-duration:0.2s;transition-property:background-color;width:100%;
+
+
+<style>
+    .page-title{<br />        padding-top: 3rem;<br />        padding-bottom: 3rem;<br />        background-color: var(--color-primary)<br />    }<br />    </style> <style scoped><span data-mce-type="bookmark" style="display: inline-block; width: 0px; overflow: hidden; line-height: 0;" class="mce_SELRES_start">﻿</span>.info-wrapper{padding-top: 5rem;}.sidebar{display: none !important;}div.primary.col {flex-basis: 100% !important;}</style>
+
+	*For Table Code*
+	<style>table {font-family: arial, sans-serif; border-collapse: collapse; width: 100%;} table td, th {border: 1px solid #000; text-align: left; padding: 8px; }</style>
+
+	*For Disclaimer Add*
+			<div style="font-size: 12px;">
+			    <p style="font-style: italic;">
+			        <i class="fas fa-exclamation-circle" style="margin-right: 5px;"></i>
+			        All pricing is based on Ontario MSRP and does not include taxes and fees.
+			        Dealer pricing may differ. Prices are subject to change anytime without notice.
+			    </p>
+			</div>
+
+	For Page Inventory Code
+	[show_inventory carousel="true" model="XT4" show_full_name="true" limit=16 condition="new"]
+
+
+	*For Page Inventory Code*
+	[show_inventory carousel="false" make="jeep" model="Wrangler" year="2024"]
+
+	For 3 Top Buttons
+	<div class="row"><a class="button button--centered" style="margin-right: 3%; margin-left: 3%; width: 25%; display: inline; max-width: initial; margin-top: 1rem; color: #fff; text-align: center;" href="/vehicles/"><strong>VIEW INVENTORY</strong></a>
+	<a class="button button--centered contact-block__laink modal-trigger" style="margin-right: 3%; margin-left: 3%; width: 25%; display: inline; color: #fff; \max-width: initial; margin-top: 1rem;" href="/book-your-test/" data-target="general-contact-modal"><strong>BOOK A TEST DRIVE</strong></a>
+	<a class="button button--centered contact-block__link modal-trigger" style="margin-right: 3%; margin-left: 3%; width: 25%; display: inline; color: #fff; max-width: initial; margin-top: 1rem;" href="/contact/" data-target="general-contact-modal"><strong>CONTACT US</strong></a></div>
+
+	
+	For Full Width Button
+	<a style="background-color: var(--color-primary); color: #ffffff; padding: 8px 16px; margin-bottom: 10px; width: 100%; display: block; text-align: center; font-weight: bold; transition-property: background-color; transition-duration: 0.2s;" href="/jeep-wrangler-in-victoria-bc/">Browse Inventory!</a>
+
+	For Half Width Button
+	<a class="button" href="/models/Ford/Mustang?y=2024" data-anl-event_action="redirect" data-anl-element_order="5" data-anl-event="cta_interaction" data-anl-element_text="Visit Our Inventory!" data-anl-glb-page_type="page_type" data-anl-glb-element_color="element_color" data-anl-event_action_result="success">Reserve Yours Today!
+	</a>
+
+	For Gallery Heading
+	<h2 id="gallery">2024 Jeep Wrangler Photo Gallery</h2>
+	[show_slider id="3210" design="3"]
+
+	For Page Title Color Change
+	<style>.page-title {color: #fff !important;}</style>
+
+	For Page Title Style
+	<style>
+	    .page-title{
+	        padding-top: 3rem;
+	        padding-bottom: 3rem;
+	        background-color: #333333;
+	    }
+	    </style>
+
+
+	    <style>
+	table, tr{
+	    height: 47px;
+	  } 
+	  table, tr, td:nth-child(1){
+	    height: 47px;
+	    text-align: right;
+	    width:220.781px;
+	  } 
+	  table, tr, td:nth-child(2){
+	    height: 47px;
+	    text-align: center;
+	    width:463.375px;
+	  } 
+	  table, tr, td:nth-child(3){
+	    height: 47px;
+	    width:220.844px;
+	  }
+	</style>
+
+<style>
+.page-title h1{color: #fff !important; background-color: rgba(0, 0, 0, 0.13); !important;}
+.sidebar-buttons {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 2.5rem;
+}
+a.s-btn {
+    font-size: 1.7rem;
+    color: white;
+    width: 48%;
+    padding: 1.2rem;
+    text-align: center;
+    background: var(--color-primary);
+    border: none !important;
+    border-radius: 3px;
+    font-weight: 600;
+}
+.s-btn:hover {
+    color: white !important;
+    background: #276197 !important;
+}</style>
+
+
+
+
+
+
