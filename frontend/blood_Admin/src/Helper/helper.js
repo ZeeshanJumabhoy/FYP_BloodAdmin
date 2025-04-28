@@ -1,16 +1,27 @@
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import useFetch from '../hooks/fetch';
+import { useAuthStore } from "../Helper/store";
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_DOMAIN;
+
+const token = localStorage.getItem('token');
 
 export async function getUsername() {
     const token = localStorage.getItem('token');
     if (!token) {
         return Promise.reject('Cannot find the Token...!');
     }
-    const decodedToken = jwt_decode(token);
+    const decodedToken = jwtDecode(token);
     return decodedToken; // Return the extracted email
 }
+// const role = useAuthStore.getState().auth.role;
+export function getBloodBankInfoFromToken() {
+    const token = localStorage.getItem('token');
+    if (!token) throw new Error('Authentication token not found');
+    const { bloodBankId, bloodBankName } = jwtDecode(token);
+    return { bloodBankId, bloodBankName };
+}
+
 export async function authenticate(email) {
     try {
         const { status } = await axios.post('/api/authenticate', { email });
@@ -262,8 +273,8 @@ export async function appointmentavailability(credentials) {
     try {
 
         // Make the API call to save the appointment availability
-        const { status, data } = await axios.post("api/setBloodBankAppointmentSchedule", credentials);
-
+        const { status, data } = await axios.post("api/setBloodBankAppointmentSchedule", credentials, { headers: { Authorization: `Bearer ${token}` } });
+        console.log(token);
         if (status === 200 || status === 201) {
             console.log("Availability successfully registered:", data);
 
@@ -280,20 +291,14 @@ export async function appointmentavailability(credentials) {
     }
 }
 
-
-export async function getAppointmentSchedule({ bloodBankId, day }) {
+export async function getAllAppointmentSchedules()
+{
     try {
-        const bloodBankCode = bloodBankId;
-        if (!bloodBankCode || !day) {
-            throw new Error("BloodBankCode and day are required.");
-        }
-        const { data } = await axios.get(`/api/getappointmentdetails`, {
-            params: { bloodBankCode, day },
-        });
+        const { data } = await axios.get(`/api/getallappointmentschedule`, { headers: { Authorization: `Bearer ${token}` } });
         return Promise.resolve({ data });
     } catch (error) {
         return Promise.reject({
-            error: "No Appointment Available for the selected day!",
+            error: 'Failed to fetch appointment schedules!',
             details: error?.response?.data || error.message,
         });
     }
@@ -351,7 +356,6 @@ export async function bookappointment(credentials) {
         return Promise.reject({ error: err, message });
     }
 }
-
 
 export async function getappointmentdetails(email) {
     try {
@@ -411,25 +415,116 @@ export async function getinventory(bloodBankId) {
     }
 }
 
-export async function getcampaign() {
+export async function addCampaign(credentials) {
     try {
-        const { data } = await axios.get(`/api/getcampaign`);
-        return Promise.resolve({ data });
+        // Fetch blood bank info from token
+        const { bloodBankId, bloodBankName } = getBloodBankInfoFromToken();
+
+
+        // Merge blood bank info into campaign credentials
+        const campaignData = {
+            ...credentials,
+            bloodBankId,
+            bloodBankName,
+        };
+
+        // Send the request to the API
+        const { data } = await axios.post('/api/addcampaign', campaignData, { headers: { Authorization: `Bearer ${token}` } });
+        return data.message;
+
     } catch (error) {
-        return Promise.reject({
-            error: "Failed to fetch Campagign Details!",
-            details: error?.response?.data || error.message,
-        });
+        console.error('Error adding campaign:', error);
+        return { message: error.message || 'Error occurred' };
     }
 }
 
-export async function getcampaignbybloodbank(bloodBankId) {
+export async function updateCampaign(campaignId, credentials) {
     try {
-        const bloodBankCode = bloodBankId;
-        if (!bloodBankCode) {
-            throw new Error("BloodBankCode and day are required.");
+        const { bloodBankId, bloodBankName } = getBloodBankInfoFromToken();
+
+        // Ensure the required fields are provided
+        const { startDateTime, endDateTime, venue, contactDetails } = credentials;
+        if (!startDateTime || !endDateTime || !venue || !contactDetails ||
+            !venue.name || !venue.street || !venue.city || !venue.state ||
+            !contactDetails.contactPerson || !contactDetails.phone) {
+            return { message: 'Invalid input data. Please provide all required fields.' };
         }
-        const { data } = await axios.get(`/api/getcampaignByBloodBank/${bloodBankId}`);
+
+        // Prepare the data to be updated
+        const updatedData = {
+            ...credentials,
+            bloodBankId,
+            bloodBankName,
+        };
+
+        // Send the update request to the API
+        const { data } = await axios.put(`/api/updatecampaign/${campaignId}`, updatedData, { headers: { Authorization: `Bearer ${token}` } });
+        return data.message;
+
+    } catch (error) {
+        console.error('Error updating campaign:', error);
+        return { message: error.message || 'Error occurred' };
+    }
+}
+
+export async function deleteCampaign(campaignId) {
+    try {
+        const { bloodBankId } = getBloodBankInfoFromToken();
+
+        // Ensure campaignId and bloodBankId are available
+        if (!campaignId || !bloodBankId) {
+            return { message: 'Missing required fields: campaignId or bloodBankId.' };
+        }
+
+        // Send the request to the API to delete the campaign
+        const { data } = await axios.delete(`/api/deleteCampaign/${campaignId}`, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+        return data.message;
+
+    } catch (error) {
+        console.error('Error deleting campaign:', error);
+        return { message: error.message || 'Error occurred' };
+    }
+}
+
+export async function getCampaignByBloodBank() {
+    try {
+        const { bloodBankId } = getBloodBankInfoFromToken();
+
+        if (!bloodBankId) {
+            throw new Error("Blood Bank ID is required.");
+        }
+
+        const { data } = await axios.get(`/api/getcampaignByBloodBank/${bloodBankId}`, { headers: { Authorization: `Bearer ${token}` } });
+        return { data };
+
+    } catch (error) {
+        return { error: "Failed to fetch Campaign Details!", details: error?.response?.data || error.message };
+    }
+}
+
+export async function getOldCampaignsByBloodBank() {
+    try {
+        const { bloodBankId } = getBloodBankInfoFromToken();
+
+        if (!bloodBankId) {
+            throw new Error("Blood Bank ID is required.");
+        }
+
+        const { data } = await axios.get(`/api/getOldCampaignsByBloodBank/${bloodBankId}`, { headers: { Authorization: `Bearer ${token}` } });
+        return { data };
+
+    } catch (error) {
+        return { error: "Failed to fetch old campaigns!", details: error?.response?.data || error.message };
+    }
+}
+
+export async function getcampaign() {
+    try {
+        const { data } = await axios.get(`/api/getcampaign`);
         return Promise.resolve({ data });
     } catch (error) {
         return Promise.reject({
@@ -458,33 +553,3 @@ export async function addinventory(credentials) {
     }
 }
 
-export async function addCampaign(credentials) {
-    try {
-        const { startDateTime, endDateTime, venue, contactDetails } = credentials;
-
-        // Validate the data
-        if (!startDateTime || !endDateTime || !venue || !contactDetails || !venue.name || !venue.street || !venue.city || !venue.state || !contactDetails.contactPerson || !contactDetails.phone) {
-            return { message: 'Invalid input data. Please provide all required fields.' };
-        }
-        // Sending the request to the API to add the campaign
-        const { data} = await axios.post('/api/addcampaign', credentials);
-        console.log(data.message);
-        return data.message;
-
-    } catch (error) {
-        console.error('Error adding campaign:', error);
-        return { message: error.message || 'Error occurred' }; // Return error message
-    }
-}
-
-
-export async function deleteCampaign(credentials) {
-    try {
-        console.log(credentials);
-        const { data } = await axios.post('/api/deleteCampaign', credentials);
-        return data.message;
-    } catch (error) {
-        console.error('Error in deleteCampaignHelper:', error);
-        throw error;
-    }
-}

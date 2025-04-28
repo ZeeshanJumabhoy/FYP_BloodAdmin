@@ -108,7 +108,7 @@ const BloodBankLogin = () => {
                 </form>
 
                 <div className="footer">
-                    &copy; 2024 Blood Bank Admin Panel. All Rights Reserved.
+                    &copy; 2025 Hayaat-e-Attiya. All Rights Reserved.
                 </div>
             </div>
         </div>

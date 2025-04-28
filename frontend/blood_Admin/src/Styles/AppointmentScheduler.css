@@ -1,0 +1,534 @@
+/* AppointmentScheduler.css */
+
+.appointment-scheduler-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #1a2841;
+}
+
+.scheduler-header {
+    margin-bottom: 40px;
+}
+
+.scheduler-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    color: #0f172a;
+}
+
+.subtitle {
+    font-size: 17px;
+    color: #64748b;
+    margin: 0 0 24px 0;
+}
+
+.schedule-summary {
+    display: flex;
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.summary-item {
+    flex: 1;
+    background-color: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+    transition: all 0.3s ease;
+}
+
+.summary-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.08);
+}
+
+.summary-icon {
+    font-size: 36px;
+    margin-right: 20px;
+    color: #dc2626;
+}
+
+.summary-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary-label {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 4px;
+}
+
+.summary-value {
+    font-size: 28px;
+    font-weight: 600;
+    color: #334155;
+}
+
+.schedule-instructions {
+    background-color: #f1f5f9;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 40px;
+}
+
+.schedule-instructions h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #334155;
+}
+
+.schedule-instructions ol {
+    margin: 0;
+    padding-left: 24px;
+}
+
+.schedule-instructions li {
+    margin-bottom: 8px;
+    color: #475569;
+}
+
+.schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 40px;
+}
+
+.day-schedule {
+    background-color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+    transition: all 0.3s ease;
+}
+
+.day-schedule.active {
+    border-left: 4px solid #dc2626;
+}
+
+.day-schedule.inactive {
+    border-left: 4px solid #cbd5e1;
+    opacity: 0.8;
+}
+
+.day-header {
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fafafa;
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s;
+}
+
+.day-header:hover {
+    background-color: #f5f5f5;
+}
+
+.day-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.day-toggle {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-label {
+    margin-right: 12px;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.toggle-switch {
+    position: relative;
+    width: 52px;
+    height: 28px;
+    border-radius: 14px;
+    background-color: #cbd5e1;
+    transition: all 0.2s ease;
+}
+
+.toggle-switch.on {
+    background-color: #dc2626;
+}
+
+.toggle-handle {
+    position: absolute;
+    left: 3px;
+    top: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.toggle-switch.on .toggle-handle {
+    left: 27px;
+}
+
+.time-slots {
+    padding: 16px 24px 24px;
+    background-color: white;
+}
+
+.time-slots-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px;
+    padding: 0 4px 8px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+}
+
+.slot-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.time-slot {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 16px;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 8px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.time-slot:hover {
+    background-color: #f8fafc;
+}
+
+.slot-times {
+    display: flex;
+    align-items: center;
+}
+
+.time-select {
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 15px;
+    color: #334155;
+    flex: 1;
+    transition: all 0.2s;
+}
+
+.time-select:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.time-separator {
+    margin: 0 12px;
+    color: #64748b;
+    font-size: 15px;
+}
+
+.appointments-input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 15px;
+    color: #334155;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.appointments-input:focus {
+    outline: none;
+    border-color: #dc2626;
+    box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.1);
+}
+
+.slot-actions {
+    display: flex;
+    justify-content: center;
+}
+
+.remove-slot-button {
+    background: none;
+    border: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.remove-slot-button:hover {
+    background-color: #fee2e2;
+    color: #dc2626;
+}
+
+.add-slot-button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    background-color: #f1f5f9;
+    border: 1px dashed #cbd5e1;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #64748b;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.add-slot-button:hover {
+    background-color: #e2e8f0;
+    color: #334155;
+}
+
+.add-icon {
+    margin-right: 8px;
+    font-size: 18px;
+}
+
+.schedule-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.cancel-button {
+    padding: 12px 24px;
+    background-color: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cancel-button:hover {
+    background-color: #e2e8f0;
+}
+
+.save-button {
+    padding: 12px 24px;
+    background-color: #dc2626;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.2);
+}
+
+.save-button:hover {
+    background-color: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(220, 38, 38, 0.3);
+}
+
+.save-button:disabled {
+    background-color: #f87171;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.save-icon {
+    font-size: 18px;
+}
+
+.button-spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #ffffff;
+    animation: spin 1s linear infinite;
+    display: inline-block;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .appointment-scheduler-container {
+        padding: 24px 16px;
+    }
+
+    .schedule-summary {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .time-slots-header {
+        grid-template-columns: 1.5fr 1fr 0.5fr;
+    }
+
+    .time-slot {
+        grid-template-columns: 1.5fr 1fr 0.5fr;
+    }
+
+    .slot-times {
+        flex-direction: column;
+        gap: 8px;
+        align-items: flex-start;
+    }
+
+    .time-separator {
+        display: none;
+    }
+}
+
+/* Add these styles to your AppointmentScheduler.css file */
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.refresh-button {
+    background: none;
+    border: none;
+    color: #3182ce;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.refresh-button:hover {
+    background-color: rgba(49, 130, 206, 0.1);
+}
+
+.refresh-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.loading-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 0;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top-color: #3182ce;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+.slot-booked {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+}
+
+.booked-value {
+    font-weight: bold;
+    color: #2d3748;
+}
+
+.time-slots-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
+    padding: 0.5rem 1rem;
+    background-color: #f7fafc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.time-slot {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.5fr;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #edf2f7;
+    align-items: center;
+}
+
+.add-slot-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.add-slot-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #ebf8ff;
+    color: #3182ce;
+    border: 1px dashed #3182ce;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-slot-button:hover {
+    background-color: #bee3f8;
+}
+
+.add-icon {
+    font-size: 1.2rem;
+}

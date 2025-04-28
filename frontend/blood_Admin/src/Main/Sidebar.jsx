@@ -82,12 +82,27 @@ class Sidebar extends React.Component {
 
                         {/* Conditionally render options based on role */}
                         {role === "Receptionist" && (
-                            <NavItem eventKey="donors">
-                                <NavIcon>
-                                    <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
-                                </NavIcon>
-                                <NavText>Donors</NavText>
-                            </NavItem>
+                            <>
+                                <NavItem eventKey="donors">
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Donors</NavText>
+                                </NavItem>
+                                <NavItem eventKey="Campaign" onClick={() => window.location.href = "/blood-admin/Campaign"}>
+                                    <NavIcon>
+                                        <i className="fa fa-bullhorn" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Campaign</NavText>
+                                </NavItem>
+                                <NavItem eventKey="AppointmentScheduler" onClick={() => window.location.href = "/blood-admin/AppointmentScheduler"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>AppointmentScheduler</NavText>
+                                </NavItem>
+                            </>
+
                         )}
 
                         {(role === "Admin" || role === "Manager") && (

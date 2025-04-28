@@ -5,6 +5,8 @@ import Navbar from './Main/Navbar'; // Import the Navbar component
 import BloodBankDashboard from './Pages/BloodBankDashboard';
 import React, { useState } from 'react';
 import Login from './Pages/Login'; // Import the Login component
+import Campaign from './Pages/Campaign';
+import AppointmentScheduler from './Pages/AppointmentScheduler';
 
 // Layout component for dashboard pages
 function DashboardLayout({ children }) {
@@ -48,7 +50,8 @@ function App() {
           <DashboardLayout>
             <Routes>
               <Route path="/Dashboard" element={<BloodBankDashboard />} />
-              {/* Add more dashboard routes here */}
+              <Route path="/Campaign" element={<Campaign />} />
+              <Route path="/AppointmentScheduler" element={<AppointmentScheduler />} />
             </Routes>
           </DashboardLayout>
         }
