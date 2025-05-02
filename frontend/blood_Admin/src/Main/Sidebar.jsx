@@ -101,11 +101,24 @@ class Sidebar extends React.Component {
                                     </NavIcon>
                                     <NavText>AppointmentScheduler</NavText>
                                 </NavItem>
+                                <NavItem eventKey="AddBloodInventory" onClick={() => window.location.href = "/blood-admin/AddBloodInventory"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Add Blood Inventory</NavText>
+                                </NavItem>
+                                <NavItem eventKey="BloodRequestDonor" onClick={() => window.location.href = "/blood-admin/BloodRequestDonor"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Blood Requests</NavText>
+                                </NavItem>
+                            
                             </>
 
                         )}
 
-                        {(role === "Admin" || role === "Manager") && (
+                        {(role === "Doctor" || role === "Laboratory Head") && (
                             <>
                                 <NavItem eventKey="bloodRequests">
                                     <NavIcon>
@@ -118,6 +131,24 @@ class Sidebar extends React.Component {
                                         <i className="fa fa-medkit" style={{ fontSize: "1.75em", color: "#fff" }} />
                                     </NavIcon>
                                     <NavText>Inventory</NavText>
+                                </NavItem>
+                                <NavItem eventKey="DonorUnderScreening" onClick={() => window.location.href = "/blood-admin/DonorUnderScreening"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Donor Under Screening</NavText>
+                                </NavItem>
+                                <NavItem eventKey="AddDonationDetails" onClick={() => window.location.href = "/blood-admin/AddDonationDetails"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Add Donation Details</NavText>
+                                </NavItem>
+                                <NavItem eventKey="GetDonationDetails" onClick={() => window.location.href = "/blood-admin/GetDonationDetails"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Donation Details</NavText>
                                 </NavItem>
                             </>
                         )}

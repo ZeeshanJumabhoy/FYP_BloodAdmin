@@ -1,0 +1,574 @@
+/* BloodInventoryManagement.css - Improved Version */
+
+.blood-inventory-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #333;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+}
+
+.header-content h1 {
+  font-size: 2.25rem;
+  color: #2d3748;
+  margin: 0 0 0.5rem 0;
+  font-weight: 700;
+}
+
+.subtitle {
+  color: #718096;
+  font-size: 1.15rem;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Improved refresh button styling */
+.refresh-button {
+  background: none;
+  border: none;
+  color: #3182ce;
+  cursor: pointer;
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  width: 42px; /* Fixed width */
+  height: 42px; /* Fixed height */
+}
+
+.refresh-button svg {
+  width: 24px; /* Fixed width for SVG */
+  height: 24px; /* Fixed height for SVG */
+}
+
+.refresh-button:hover {
+  background-color: rgba(49, 130, 206, 0.1);
+}
+
+.refresh-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Dashboard cards */
+.inventory-dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.dashboard-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  display: flex;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05), 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.card-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1.25rem;
+  font-size: 1.5rem;
+}
+
+.total-components .card-icon {
+  background: rgba(66, 153, 225, 0.1);
+  color: #2b6cb0;
+}
+
+.blood-types .card-icon {
+  background: rgba(72, 187, 120, 0.1);
+  color: #276749;
+}
+
+.critical-inventory .card-icon {
+  background: rgba(245, 101, 101, 0.1);
+  color: #c53030;
+}
+
+.whole-blood .card-icon {
+  background: rgba(237, 100, 166, 0.1);
+  color: #b83280;
+}
+
+.card-content h3 {
+  margin: 0;
+  font-size: 1rem;
+  color: #4a5568;
+  font-weight: 500;
+}
+
+.card-value {
+  margin: 0.5rem 0 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2d3748;
+}
+
+/* Inventory table */
+.inventory-container {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+}
+
+.inventory-header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.inventory-header-actions h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #2d3748;
+  font-weight: 600;
+}
+
+.add-group-button {
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-group-button:hover {
+  background-color: #2c5282;
+}
+
+.add-group-button svg {
+  font-size: 1.125rem;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 0;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #3182ce;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.empty-inventory {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.empty-inventory svg {
+  color: #a0aec0;
+  margin-bottom: 1.5rem;
+}
+
+.empty-inventory p {
+  margin-bottom: 2rem;
+  color: #718096;
+  font-size: 1.125rem;
+}
+
+/* Fixed alignment issue */
+.add-group-button-large {
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex; /* Changed from flex to inline-flex */
+  align-items: center;
+  justify-content: center; /* Added justify-content for centering */
+  gap: 0.75rem;
+  transition: background-color 0.3s ease;
+}
+
+.add-group-button-large:hover {
+  background-color: #2c5282;
+}
+
+.add-group-button-large svg,
+.add-group-button-large i {
+  flex-shrink: 0; /* Prevents icon from shrinking */
+}
+
+/* Table styles */
+.inventory-table-container {
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.inventory-table th {
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inventory-table tr:hover {
+  background-color: #f7fafc;
+}
+
+.blood-group-cell {
+  font-weight: 600;
+}
+
+.blood-group-badge {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 50px;
+  font-weight: 700;
+  color: white;
+  font-size: 0.875rem;
+  text-align: center;
+  min-width: 50px;
+}
+
+.blood-group-badge.positive {
+  background-color: #e53e3e;
+}
+
+.blood-group-badge.negative {
+  background-color: #3182ce;
+}
+
+.inventory-value {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 500;
+  display: inline-block;
+}
+
+.inventory-value.critical {
+  background-color: rgba(245, 101, 101, 0.15);
+  color: #c53030;
+}
+
+.inventory-value.warning {
+  background-color: rgba(237, 137, 54, 0.15);
+  color: #c05621;
+}
+
+.inventory-value.healthy {
+  background-color: rgba(72, 187, 120, 0.15);
+  color: #2f855a;
+}
+
+.inventory-input {
+  width: 100%;
+  max-width: 120px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.edit-button,
+.save-button,
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.125rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.edit-button {
+  color: #4299e1;
+}
+
+.edit-button:hover {
+  background-color: rgba(66, 153, 225, 0.1);
+}
+
+.save-button {
+  color: #48bb78;
+}
+
+.save-button:hover {
+  background-color: rgba(72, 187, 120, 0.1);
+}
+
+.delete-button {
+  color: #f56565;
+}
+
+.delete-button:hover {
+  background-color: rgba(245, 101, 101, 0.1);
+}
+
+/* Actions bar */
+.inventory-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.submit-button {
+  background-color: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #2f855a;
+}
+
+.submit-button:disabled {
+  background-color: #a0aec0;
+  cursor: not-allowed;
+}
+
+.button-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s linear infinite;
+}
+
+/* Enhanced Modal styling */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Dark semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.add-blood-group-modal {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 550px;
+  animation: modalFadeIn 0.3s ease-out;
+  overflow: hidden; /* Ensures all corners follow border-radius */
+  border: 1px solid #e2e8f0;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  background-color: #f8fafc;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.modal-header h2 {
+  margin: 0;
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  color: #64748b;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.close-button:hover {
+  color: #ef4444;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  background-color: #f8fafc;
+  border-top: 1px solid #e2e8f0;
+  padding-right: 12px;
+}
+
+.cancel-button {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cancel-button:hover {
+  background-color: #f43e11;
+}
+
+.add-button {
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-button:hover {
+  background-color: #2c5282;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #4a5568;
+  font-size: 0.95rem;
+}
+
+.blood-group-select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #cbd5e0;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  background-color: #f8fafc;
+  color: #2d3748;
+  transition: border-color 0.2s ease;
+  appearance: none; /* Remove default appearance */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%234a5568' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+}
+
+.blood-group-select:focus,
+.inventory-input:focus {
+  outline: none;
+  border-color: #3182ce;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.modal-body .inventory-input {
+  width: 100%;
+  max-width: none;
+  padding: 0.75rem;
+}

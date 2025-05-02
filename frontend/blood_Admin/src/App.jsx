@@ -7,6 +7,11 @@ import React, { useState } from 'react';
 import Login from './Pages/Login'; // Import the Login component
 import Campaign from './Pages/Campaign';
 import AppointmentScheduler from './Pages/AppointmentScheduler';
+import AddBloodInventory from './Pages/AddBloodInventory';
+import BloodRequestedDonor from './Pages/BloodRequestedDonor';
+import UnderScreenDonor from './Pages/UnderScreenDonor';
+import AddDonationDetails from './Pages/AddDonationDetails';
+import GetDonationDetails from './Pages/GetDonationDetails';
 
 // Layout component for dashboard pages
 function DashboardLayout({ children }) {
@@ -52,6 +57,11 @@ function App() {
               <Route path="/Dashboard" element={<BloodBankDashboard />} />
               <Route path="/Campaign" element={<Campaign />} />
               <Route path="/AppointmentScheduler" element={<AppointmentScheduler />} />
+              <Route path="/AddBloodInventory" element={<AddBloodInventory />} />
+              <Route path="/BloodRequestDonor" element={<BloodRequestedDonor />} />
+              <Route path="/DonorUnderScreening" element={<UnderScreenDonor />} />
+              <Route path="/AddDonationDetails" element={<AddDonationDetails />} />
+              <Route path="/GetDonationDetails" element={<GetDonationDetails />} />
             </Routes>
           </DashboardLayout>
         }

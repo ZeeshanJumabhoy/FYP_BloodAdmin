@@ -86,14 +86,14 @@ export async function register(credentials) {
     }
 }
 
-/*export async function getUser({ username }) {
+export async function getUserDetails({ email }) {
     try {
-        let { data } = await axios.get(`/api/user/${username}`);
+        let { data } = await axios.get(`/api/user/${email}`);
         return data;
     } catch (e) {
         return { error: "Couldn't Fetch the user data...!", e };
     }
-}*/
+}
 
 export async function updateUser(credentials) {
     try {
@@ -106,6 +106,15 @@ export async function updateUser(credentials) {
     }
 }
 
+export async function updateUserByBloodBank(credentials) {
+    try {
+        const { data } = await axios.put('/api/update-user-by-bloodbank', credentials);
+        return Promise.resolve({ data });
+    } catch (err) {
+        let message = err?.response?.data?.error;
+        return Promise.reject({ err, message });
+    }
+}
 //change in this
 export async function generateOTP(username) {
     let email = username;
@@ -238,7 +247,6 @@ export async function getBloodRequestById(id) {
     }
 }
 
-
 export async function updateBloodRequest(id, updatedFields) {
     try {
         // Get the JWT token from localStorage
@@ -291,8 +299,7 @@ export async function appointmentavailability(credentials) {
     }
 }
 
-export async function getAllAppointmentSchedules()
-{
+export async function getAllAppointmentSchedules() {
     try {
         const { data } = await axios.get(`/api/getallappointmentschedule`, { headers: { Authorization: `Bearer ${token}` } });
         return Promise.resolve({ data });
@@ -395,23 +402,6 @@ export async function updateAppointmentStatus(email, status) {
         console.error('Error updating appointment status:', error);
         // Return an error message if the request fails
         return Promise.reject({ error: 'Failed to update appointment status!', details: error });
-    }
-}
-
-
-export async function getinventory(bloodBankId) {
-    try {
-        const bloodBankCode = bloodBankId;
-        if (!bloodBankCode) {
-            throw new Error("BloodBankCode and day are required.");
-        }
-        const { data } = await axios.get(`/api/getinventory/${bloodBankId}`);
-        return Promise.resolve({ data });
-    } catch (error) {
-        return Promise.reject({
-            error: "Failed to fetch Blood Bank Inventory!",
-            details: error?.response?.data || error.message,
-        });
     }
 }
 
@@ -537,14 +527,14 @@ export async function getcampaign() {
 export async function addinventory(credentials) {
     try {
         // Destructuring the necessary fields from the credentials object
-        const { bloodBankId, bloodBankName, inventory } = credentials;
+        const { inventory } = credentials;
 
         // Validate the data
-        if (!bloodBankId || !bloodBankName || !Array.isArray(inventory) || inventory.length === 0) {
+        if (!Array.isArray(inventory) || inventory.length === 0) {
             return { message: 'Invalid input data' };
         }
 
-        const { data } = await axios.post('/api/addinventory', credentials);
+        const { data } = await axios.post('/api/addinventory', credentials, { headers: { Authorization: `Bearer ${token}` } });
         return Promise.resolve({ data });
 
     } catch (error) {
@@ -553,3 +543,223 @@ export async function addinventory(credentials) {
     }
 }
 
+export async function getinventory() {
+    try {
+        // Fetch blood bank info from token
+        const { bloodBankId } = getBloodBankInfoFromToken();
+        // Ensure bloodBankId is available
+        if (!bloodBankId) {
+            throw new Error("Blood Bank ID is required.");
+        }
+        const bloodBankCode = bloodBankId;
+        if (!bloodBankCode) {
+            throw new Error("BloodBankCode and day are required.");
+        }
+        const { data } = await axios.get(`/api/getinventory/${bloodBankId}`);
+        return Promise.resolve({ data });
+    } catch (error) {
+        return Promise.reject({
+            error: "Failed to fetch Blood Bank Inventory!",
+            details: error?.response?.data || error.message,
+        });
+    }
+}
+
+export async function getInteresteddonordata() {
+    try {
+        const { data } = await axios.get(`/api/getInterestedDonorData`);
+        return Promise.resolve({ data });
+    } catch (error) {
+        return Promise.reject({
+            error: "Failed to fetch Interested Donor Data!",
+            details: error?.response?.data || error.message,
+        });
+    }
+}
+
+export async function getUnderScreeningdonordata() {
+    try {
+        const { data } = await axios.get(`/api/getunderscreeningdonordata`, { headers: { Authorization: `Bearer ${token}` } });
+        return Promise.resolve({ data });
+    } catch (error) {
+        return Promise.reject({
+            error: "Failed to fetch Interested Donor Data!",
+            details: error?.response?.data || error.message,
+        });
+    }
+}
+
+export async function AddUnderScreeningDonorData(credentials) {
+    try {
+        if (!token) {
+            throw new Error('Authentication token is missing.');
+        }
+
+        const {
+            email,
+            weight,
+            bloodPressure,
+            temperature,
+            eligibilityStatus,
+        } = credentials;
+
+        // Validate required fields
+        if (!email || !weight || !bloodPressure || !temperature || !eligibilityStatus) {
+            throw new Error('All fields are required.');
+        }
+
+        const { data } = await axios.post(
+            '/api/donorscreening',
+            {
+                email,
+                weight,
+                bloodPressure,
+                temperature,
+                eligibilityStatus,
+            },
+            { headers: { Authorization: `Bearer ${token}` } }
+        );
+
+        // Return the response data
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error recording donor screening:', error);
+
+        // Extract a meaningful error message if available
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
+
+export async function getUnderScreeningForDonationDetails() {
+    try {
+        if (!token) {
+            throw new Error('Authentication token is missing.');
+        }
+
+        const { data } = await axios.get('/api/under-screening', {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error fetching under-screening donation details:', error);
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
+
+export async function addDonationDetails(credentials) {
+    try {
+        if (!token) {
+            throw new Error('Authentication token is missing.');
+        }
+
+        const { donorId, donationDate, volume, donationType, doctorName } = credentials;
+
+        // Validate required fields
+        if (!donorId || !donationDate || !volume || !donationType || !doctorName) {
+            throw new Error('All fields are required.');
+        }
+
+        const { data } = await axios.post('/api/addDonationDetails', credentials, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error adding donation details:', error);
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
+
+export async function getDonationDetails() {
+    try {
+        const { data } = await axios.get('/api/get-donation-details', {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error fetching donation details:', error);
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
+
+export async function updateBloodRequestStatusHelper(credentials) {
+    try {
+        const { requestId, donorEmail, status } = credentials;
+
+        if (!requestId || !donorEmail || !status) {
+            throw new Error('Request ID, donor email, and status are required.');
+        }
+
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Authentication token is missing.');
+        }
+
+        const { data } = await axios.post(
+            '/api/updatebloodrequeststatus',
+            { requestId, donorEmail, status },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        // Return the response data
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error updating blood request status:', error);
+
+        // Extract a meaningful error message if available
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
+
+export async function updateMasterBloodDonationHelper(credentials) {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Authentication token is missing.');
+        }
+
+        const {
+            email,
+            donorId,
+            donationId,
+        } = credentials;
+
+        if (!email) {
+            throw new Error('Email and bloodBankId are required.');
+        }
+
+        const { data } = await axios.post(
+            '/api/updatemasterblood',
+            {
+                email,
+                donorId,
+                donationId
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            }
+        );
+
+        // Return the response data
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error updating MasterBloodDonation record:', error);
+
+        // Extract a meaningful error message if available
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
