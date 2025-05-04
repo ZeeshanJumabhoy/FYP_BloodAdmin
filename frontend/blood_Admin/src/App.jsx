@@ -12,6 +12,7 @@ import BloodRequestedDonor from './Pages/BloodRequestedDonor';
 import UnderScreenDonor from './Pages/UnderScreenDonor';
 import AddDonationDetails from './Pages/AddDonationDetails';
 import GetDonationDetails from './Pages/GetDonationDetails';
+import AddDonationTestResult from './Pages/AddDonationTestResult';
 
 // Layout component for dashboard pages
 function DashboardLayout({ children }) {
@@ -62,6 +63,7 @@ function App() {
               <Route path="/DonorUnderScreening" element={<UnderScreenDonor />} />
               <Route path="/AddDonationDetails" element={<AddDonationDetails />} />
               <Route path="/GetDonationDetails" element={<GetDonationDetails />} />
+              <Route path="/AddDonationTestResult" element={<AddDonationTestResult />} />
             </Routes>
           </DashboardLayout>
         }

@@ -688,6 +688,59 @@ export async function getDonationDetails() {
     }
 }
 
+export async function addBloodTestResultHelper(credentials) {
+    try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Authentication token is missing.');
+        }
+
+        const {
+            donationId,
+            donorId,
+            donorEmail,
+            hiv,
+            hepatitisB,
+            hepatitisC,
+            syphilis,
+            bloodType,
+            hemoglobinLevel,
+            doctorRemarks,
+            labDoctor,
+            suggestedNextDonationDate,
+            platletsfreezer,
+            RBCfreezer,
+            plasmafreezer,
+        } = credentials;
+
+        // Validate required fields
+        if (
+            !donationId ||
+            !donorId ||
+            !donorEmail ||
+            !hiv ||
+            !hepatitisB ||
+            !hepatitisC ||
+            !syphilis ||
+            !bloodType ||
+            !hemoglobinLevel ||
+            !labDoctor
+        ) {
+            throw new Error('All required fields must be provided.');
+        }
+
+        const { data } = await axios.post('/api/addBloodTestResult', credentials, {
+            headers: { Authorization: `Bearer ${token}` },
+        });
+
+        return Promise.resolve(data);
+    } catch (error) {
+        console.error('Error adding blood test result:', error);
+        const message = error?.response?.data?.error || error.message;
+        return Promise.reject({ error: message });
+    }
+}
+
 export async function updateBloodRequestStatusHelper(credentials) {
     try {
         const { requestId, donorEmail, status } = credentials;
@@ -733,6 +786,7 @@ export async function updateMasterBloodDonationHelper(credentials) {
             email,
             donorId,
             donationId,
+            testId,
         } = credentials;
 
         if (!email) {
@@ -744,7 +798,8 @@ export async function updateMasterBloodDonationHelper(credentials) {
             {
                 email,
                 donorId,
-                donationId
+                donationId,
+                testId,
             },
             {
                 headers: {

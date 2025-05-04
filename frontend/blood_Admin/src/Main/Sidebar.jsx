@@ -150,6 +150,12 @@ class Sidebar extends React.Component {
                                     </NavIcon>
                                     <NavText>Donation Details</NavText>
                                 </NavItem>
+                                <NavItem eventKey="AddDonationTestResult" onClick={() => window.location.href = "/blood-admin/AddDonationTestResult"}>
+                                    <NavIcon>
+                                        <i className="fa fa-user-plus" style={{ fontSize: "1.75em", color: "#fff" }} />
+                                    </NavIcon>
+                                    <NavText>Add Donation Test Result</NavText>
+                                </NavItem>
                             </>
                         )}
 
