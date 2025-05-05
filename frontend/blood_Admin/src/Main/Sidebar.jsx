@@ -23,8 +23,8 @@ class Sidebar extends React.Component {
     };
 
     render() {
-        const role = useAuthStore.getState().auth.role; // Get the user's role from the global state
-
+        // const role = useAuthStore.getState().auth.role; // Get the user's role from the global state
+        const role = localStorage.getItem("role"); // Get the user's role from local storage
         return (
             <div
                 style={{

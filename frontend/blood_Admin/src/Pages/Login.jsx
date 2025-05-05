@@ -32,6 +32,8 @@ const BloodBankLogin = () => {
             loginPromise.then((res) => {
                 let { token } = res.data;
                 localStorage.setItem("token", token);
+                localStorage.setItem("user", JSON.stringify(res.data.user)); // Store user data in local storage
+                localStorage.setItem("role", res.data.authorizedPersonRole); // Store role in local storage
 
                 // Decode the token to extract role
                 const decodedToken = jwtDecode(token);
